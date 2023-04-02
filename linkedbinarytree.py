@@ -194,3 +194,50 @@ class LinkedBinaryTree(BinaryTree):
             t2._size = 0
             
 
+    def preorder(self):
+        """Generate a preorder iteration of positions in the tree."""
+        if not self.is_empty():
+            for p in self._subtree_preorder(self.root()):
+                yield p
+
+    def _subtree_preorder(self, p):
+        """Generate a preorder iteration of positions in subtree rooted at p."""
+        yield p  # visit p before its subtrees
+        for c in self.children(p):
+            for other in self._subtree_preorder(c):  # do preorder of c's subtree
+                yield other
+
+
+# Here we introduce the preorder traversal method (root->left->right)
+
+    def preorder_traverse(self, p, depth=0):
+        """Perform a recursive pre-order traversal of the tree."""
+        if p is not None:
+            print(" " * depth + "|--", p.element())
+            if self.left(p) is not None:
+                self.preorder_traverse(self.left(p), depth + 1)
+            if self.right(p) is not None:
+                self.preorder_traverse(self.right(p), depth + 1)
+  
+# Here we introduce the postorder traversal method (left->right->root)
+
+    def postorder_traverse(self, p, depth=0):
+        """Perform a recursive post-order traversal of the tree."""
+        if p is not None:
+            if self.left(p) is not None:
+                self.postorder_traverse(self.left(p), depth + 1)
+            if self.right(p) is not None:
+                self.postorder_traverse(self.right(p), depth + 1)
+            print(" " * depth + "|--", p.element())
+
+# Here we introduce the inorder traversal method (left->root->right)
+
+    def inorder_traverse(self, p, depth=0):
+        """Perform a recursive in-order traversal of the tree."""
+        if p is not None:
+            if self.left(p) is not None:
+                self.inorder_traverse(self.left(p), depth + 1)
+            print(" " * depth + "|--", p.element())
+            if self.right(p) is not None:
+                self.inorder_traverse(self.right(p), depth + 1)
+
